@@ -2,29 +2,44 @@
 
 <h2 style="text-align:center; margin-top:20px;">Monkey List</h2>
 
-<div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-top:20px;">
-
-    @foreach (var monkey in monkeys)
-    {
-        <div style="width:250px; padding:15px; border:1px solid #ccc; border-radius:10px; text-align:center;">
-            
-            @if (!string.IsNullOrEmpty(monkey.Image))
+@* Check if list is empty *@
+@if (monkeys.Count == 0)
+{
+        <p style="text-align:center; color:red; margin-top:20px;">
+            No monkeys found
+        </p>
+}
+else
+{
+        <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-top:20px;">
+            @foreach (var monkey in monkeys)
             {
-                <img src="@monkey.Image" alt="@monkey.Name" 
-                     style="width:200px; height:auto; border-radius:10px;" />
-            }
-            else
-            {
-                <p>(No Image Available)</p>
-            }
+                    <div style="
+                        width:250px; 
+                        padding:15px; 
+                        border:1px solid #ccc; 
+                        border-radius:10px; 
+                        text-align:center;
+                        box-shadow:0 2px 6px rgba(0,0,0,0.1);
+                        background-color:white;
+                    ">
+                        @if (!string.IsNullOrEmpty(monkey.Image))
+                        {
+                                <img src="@monkey.Image" 
+                                     alt="@monkey.Name" 
+                                     style="width:200px; height:auto; border-radius:10px;" />
+                        }
+                        else
+                        {
+                                <p>(No Image Available)</p>
+                        }
 
-            <h3>@monkey.Name</h3>
-            <p><strong>Location:</strong> @monkey.Location</p>
-
+                        <h3>@monkey.Name</h3>
+                        <p><strong>Location:</strong> @monkey.Location</p>
+                    </div>
+            }
         </div>
-    }
-
-</div>
+}
 
 @code {
     public class Monkey
@@ -34,6 +49,7 @@
         public string Image { get; set; }
     }
 
+    // Example list of monkeys
     List<Monkey> monkeys = new()
     {
         new Monkey
